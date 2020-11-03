@@ -6,40 +6,39 @@ Main Project Idea:
 
   Backend:
     Classes:
-      Course ID # (Primary Key)
-      Subject
+      ClassID (Primary Key)
+      ClassTitle
       Instructor (Foreign Key)
       Department
-      Meeting Time/days
+      MeetingTimes
+      MeetingDays
 
     Student:
-      Student ID # (Primary Key)
-      First Name
-      Last Name
-      Course #'s (Foreign Key)
+      StudentID (Primary Key)
+      FirstName
+      LastName
       Major
       Minor (optional)
 
-    Instructors:
-      Instructor ID # (Primary Key)
-      First Name
-      Last Name
-      Course #'s (Foreign Key)
-      Department
+    Instructor:
+      InstructorID (Primary Key)
+      DepartmentID
+      FirstName
+      LastName
     
     Department:
-      Department ID # (Primary Key)
+      DepartmentID (Primary Key)
       Courses
       Instructors
-      Chair
+      DepartmentChair
     
     School System:
-      University ID # (Primary Key)
-      University Name
-      City
+      UniversityID (Primary Key)
+      UniversityName
+      UniversityCity
     
     Server:
-      Changning Spring Boot to suit our needs (Blaine)
+      Creating PHP files to enable the essential actions on the website (Blaine)
 
     Front End:
       Form:
@@ -48,5 +47,18 @@ Main Project Idea:
         
         Student Course Selection Page
 
+CURRENT PROGRESS REPORT: Blaine
+  I have set up a basic database on my machine and I can add student accounts to it, as well as search for courses in it. 
+
+  TODO:
+    - Ability to add instructors, courses, etc.
+    - Ability to Delete instructors, student, courses etc.
+    - Ability to update instructors, students, etc.
+    
+    - Figure out how to connect the various tables together in the database so that when you search for a course it tells you the name of the instructor and department rather than their ID numbers.
+
+    - Figure out how to store lists in a table (Department: Courses for example needs to contain a list of ID Numbers of courses offered under the department)
+
+    - Update the CSS so that the table is more readable when you search for a class
 
 
