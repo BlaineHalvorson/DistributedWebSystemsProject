@@ -56,7 +56,7 @@ Main Project Idea:
 
     Student functions:
       ✅ Register (create) new student
-      - Search courses by department
+      ✅ Search courses by department
       - Add or drop a course by course ID
       - View your schedule
 
