@@ -7,30 +7,38 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-try {
-  require "config.php";
-  require "common.php";
-
-  $connection = new PDO($dsn, $username, $password, $options);
-  $studentID = 1;
-
-  $sql = "SELECT Student.FirstName, Classes.ClassTitle
-  FROM Student inner join Enrolled on Student.StudentID = Enrolled.StudentID
-  JOIN Classes on Enrolled.ClassID = Classes.ClassID
-  WHERE Student.StudentID = ?";
-
-  $statement = $connection->prepare($sql);
-  $statement->execute([$studentID]);
-  $result = $statement->fetchAll();
-
-} catch(PDOException $error) {
-  echo $sql . "<br>" . $error->getMessage();
+if (isset($_POST['submit'])) {
+  try {
+    require "config.php";
+    require "common.php";
+  
+    $connection = new PDO($dsn, $username, $password, $options);
+  
+    $sql = "SELECT Student.FirstName, Classes.ClassTitle
+    FROM Student inner join Enrolled on Student.StudentID = Enrolled.StudentID
+    JOIN Classes on Enrolled.ClassID = Classes.ClassID
+    WHERE Student.StudentID = :StudentID";
+  
+    $statement = $connection->prepare($sql);
+    $statement->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
+    $statement->execute();
+  
+    $result = $statement->fetchAll();
+  } catch(PDOException $error) {
+    echo $sql . "<br>" . $error->getMessage();
+  }
+  ?>
 }
-?>
 
 <?php require "templates/header.php"; ?>
 
 <h2>Update users courses</h2>
+
+<form action="update.php?StudentID=<?php echo $StudentID ?>" method="post">
+  <label for="StudentID">Enter Your Student ID</label>
+  <input type="text" id="StudentID" name="StudentID">
+  <input type="submit" name="submit" value="See Courses">
+</form>
 
 <table>
   <thead>
