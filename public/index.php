@@ -8,7 +8,7 @@
     <a href="classSearch.php"><strong>Course Search</strong></a> - find a course to enrole in
   </li>
   <li>
-    <a href="update.php"><strong>Update</strong> - functionality will be moved into the course search page so we can update a student's courses</a>
+    <a href="classSchedule.php"><strong>Your Schedule</strong> - see youre current schedule and drop courses you don't want</a>
   </li>
 </ul>
 

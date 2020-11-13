@@ -31,7 +31,8 @@ INSERT INTO `Student` (`StudentID`, `FirstName`, `LastName`, `Major`, `Minor`) V
 (1, 'Jimmy', 'Hall', 'Computer Science', ''),
 (2, 'John', 'Smith', 'Computer Science', ''),
 (3, 'Ann', 'Salter', 'Biology', ''),
-(4, 'Jane', 'Dore', 'Nursing', 'Biology');
+(4, 'Jane', 'Dore', 'Nursing', 'Biology'),
+(5, 'Blaine', 'Halvorson', 'Computer Science', '');
 
 -- Add to SchoolSystem:
 
