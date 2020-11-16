@@ -40,6 +40,30 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
+<!-- Only runs if the user has selected a specific course -->
+<?php 
+if (isset($_POST['ClassID'])) {
+  try {
+    $connectionDrop = new PDO($dsn, $username, $password, $options);
+  
+    $sqlDrop = "DELETE FROM Enrolled
+    WHERE Enrolled.StudentID = :StudentID AND Enrolled.ClassID = :ClassID";
+
+    $StudentID = $_POST['StudentID'];
+    $ClassID = $_POST['ClassID'];
+  
+    $statementDrop = $connection->prepare($sqlDrop);
+    $statementDrop->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
+    $statementDrop->bindParam(':ClassID', $ClassID, PDO::PARAM_STR);
+    $statementDrop->execute();
+
+    $result = $statement->fetchAll();
+  } catch(PDOException $err) {
+    echo $sql . "<br>" . $err->getMessage();
+  }
+}
+?>
+
 <?php require "templates/header.php"; 
 
 //Changes the h2 tag based on the student selected
@@ -59,9 +83,12 @@ if(isset($name["FirstName"])){
 
 <table>
   <thead>
+  <?php
+  if (isset($_POST['submit'])) { ?>
     <tr>
       <th>Class Title</th>
     </tr>
+  <?php } ?>
   </thead>
   <tbody>
   <?php 
@@ -69,7 +96,7 @@ if(isset($name["FirstName"])){
     foreach ($result as $row) : ?>
     <tr>
       <td><?php echo escape($row["ClassTitle"]); ?></td>
-      <td><a href="dropClass.php?ClassID=<?php echo escape($row["ClassID"])?>&StudentID=<?php echo escape($row["StudentID"])?>">Drop</a></td>
+      <td><a href="classSchedule.php?ClassID=<?php echo escape($row['ClassID'])?>">Drop</a></td>
     </tr>
   <?php endforeach; }?>
   </tbody>

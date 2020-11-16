@@ -8,7 +8,7 @@
     <a href="classSearch.php"><strong>Course Search</strong></a> - find a course to enrole in
   </li>
   <li>
-    <a href="classSchedule.php"><strong>Your Schedule</strong> - see youre current schedule and drop courses you don't want</a>
+    <a href="classSchedule.php"><strong>Your Schedule</strong></a> - see youre current schedule and drop courses you don't want
   </li>
 </ul>
 
