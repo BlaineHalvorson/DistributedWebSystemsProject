@@ -9,12 +9,12 @@ error_reporting(E_ALL);
 
 if (isset($_POST['submit'])) {
   try {
-    require "config.php";
-    require "common.php";
+    require_once "config.php";
+    require_once "common.php";
   
     $connection = new PDO($dsn, $username, $password, $options);
   
-    $sql = "SELECT Student.FirstName, Classes.ClassTitle
+    $sql = "SELECT Student.FirstName, Student.StudentID, Classes.ClassTitle, Classes.ClassID
     FROM Student inner join Enrolled on Student.StudentID = Enrolled.StudentID
     JOIN Classes on Enrolled.ClassID = Classes.ClassID
     WHERE Student.StudentID = :StudentID";
@@ -41,25 +41,32 @@ if (isset($_POST['submit'])) {
 ?>
 
 <!-- Only runs if the user has selected a specific course -->
-<?php 
-if (isset($_POST['ClassID'])) {
+<?php
+
+
+//TODO: New plan: If rewriting the SQL function doesn't work then instead of reloading the page with the "drop" link, I want to put checkboxes at the end of the list where the drop links are currently. Then have one drop button at the bottom of the table. When you click the checkbox the CourseID's are added to an array and once the button is clicked it runs a function which passes the array in as an argument. Then a for loop goes through the array and drops each individual course from the student's class list. 
+
+if (isset($_GET['DropClassID'])) {
   try {
+
+    require_once "config.php";
+    require_once "common.php";
+    
     $connectionDrop = new PDO($dsn, $username, $password, $options);
   
     $sqlDrop = "DELETE FROM Enrolled
-    WHERE Enrolled.StudentID = :StudentID AND Enrolled.ClassID = :ClassID";
+    WHERE Enrolled.StudentID = :StudentID AND Enrolled.ClassID = :DropClassID";
 
-    $StudentID = $_POST['StudentID'];
-    $ClassID = $_POST['ClassID'];
+    $StudentID = $_GET['StudentID'];
+    $DropClassID = $_GET['DropClassID'];
   
-    $statementDrop = $connection->prepare($sqlDrop);
+    $statementDrop = $connectionDrop->prepare($sqlDrop);
     $statementDrop->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
-    $statementDrop->bindParam(':ClassID', $ClassID, PDO::PARAM_STR);
+    $statementDrop->bindParam(':DropClassID', $DropClassID, PDO::PARAM_STR);
     $statementDrop->execute();
 
-    $result = $statement->fetchAll();
   } catch(PDOException $err) {
-    echo $sql . "<br>" . $err->getMessage();
+    echo $sqlDrop . "<br>" . $err->getMessage();
   }
 }
 ?>
@@ -96,7 +103,7 @@ if(isset($name["FirstName"])){
     foreach ($result as $row) : ?>
     <tr>
       <td><?php echo escape($row["ClassTitle"]); ?></td>
-      <td><a href="classSchedule.php?ClassID=<?php echo escape($row['ClassID'])?>">Drop</a></td>
+      <td><a href="classSchedule.php?DropClassID=<?php echo escape($row['ClassID']);?>&StudentID=<?php echo escape($row['StudentID']);?>">Drop</a></td>
     </tr>
   <?php endforeach; }?>
   </tbody>
