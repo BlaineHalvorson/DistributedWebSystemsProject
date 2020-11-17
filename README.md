@@ -58,8 +58,7 @@ Main Project Idea:
       ✅ Register (create) new student
       ✅ Search courses by department
       - Add a course by course ID
-      - Drop a course by course ID
-        Very close to finishing this step, I am getting an error when trying to pass the class id and student id to the mysql query. When I figure that out I will be able to check this off. Anyone who wants to try and help please do. The bug is in the classSchedule.php file on line 
+      ✅ Drop a course by course ID
       ✅ View your schedule
 
     Staff functions:
