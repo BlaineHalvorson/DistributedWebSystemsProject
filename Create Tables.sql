@@ -6,7 +6,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `WebSystemsFinalProject`
 
--- create database WebSystemsFinalProject_TEST;
+  create database WebSystemsFinalProject;
   use WebSystemsFinalProject;
 
 -- --------------------------------------------------------
