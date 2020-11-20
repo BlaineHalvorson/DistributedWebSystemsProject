@@ -5,10 +5,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (isset($_POST['submit'])) {
+if ((isset($_GET['StudentID']))&&(isset($_GET['ClassID']))) {
   try {
-    require "config.php";
-    require "common.php";
+    require_once "config.php";
+    require_once "common.php";
 
     $connection = new PDO($dsn, $username, $password, $options);
 
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
 }
 require "templates/header.php";
 
-if (isset($_POST['submit'])) {
+if ((isset($_GET['StudentID']))&&(isset($_GET['DepartmentID']))) {
   if ($result && $statement->rowCount() > 0) { ?>
     <h2>Results</h2>
 
@@ -62,9 +62,41 @@ if (isset($_POST['submit'])) {
 } 
 ?>
 
-<h2>Course Search</h2>
+<h2>Course Search <?php 
+function showStudentName($name){
+  echo("<br> <h3>Logged in as " . $name . "<h3>");
+} ?></h2>
+
+<form method="post">
+    <label for="StudentID">Enter your Student ID</label>
+    <input type="text" id="StudentID" name="StudentID">
+    <input type="submit" name="submit" value="Log In">
+</form>
 
 <table>
+<?php 
+if (isset($_POST['submit'])) {
+  try{
+    require_once "config.php";
+    require_once "common.php";
+
+    $connection2 = new PDO($dsn, $username, $password, $options);
+  
+    $sqlGetName = "SELECT FirstName FROM Student WHERE StudentID = :StudentID";
+  
+    $StudentID = $_POST['StudentID'];
+  
+    $Statement2 = $connection2->prepare($sqlGetName);
+    $Statement2->bindParam(":StudentID", $StudentID, PDO::PARAM_STR);
+    $Statement2->execute();
+    $name = $Statement2->fetch();
+
+    showStudentName($name["FirstName"]);
+  }catch(PDOException $err) {
+    echo $sqlGetName . "<br>" . $err->getMesage();
+  }
+  ?>
+
   <tr>
     <th>1</th>
     <th>2</th>
@@ -82,6 +114,7 @@ if (isset($_POST['submit'])) {
     <input type="text" id="DepartmentID" name="DepartmentID">
     <input type="submit" name="submit" value="View Results">
 </form>
+<?php }?>
 
 <a href="index.php">Back to home</a>
 
