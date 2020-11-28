@@ -82,6 +82,7 @@ function showClasses($result, $statement) {
         <td><?php echo escape($row["MeetingDays"]); ?></td>
         <td><?php echo escape($row["Instructor"]); ?></td>
         <td><?php echo escape($row["DepartmentName"]); ?></td>
+        <td><a href="classSearch.php?AddClassID=<?php echo escape($row['ClassID']);?>&StudentID=<?php echo escape($_POST['StudentID']);?>">Add</a></td>
       </tr>
     <?php } ?>
     </tbody>
@@ -95,10 +96,7 @@ function getClasses($DepartmentID, $dsn, $username, $password, $options) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT classes.ClassID, classes.ClassTitle, classes.MeetingTimes, classes.MeetingDays, concat(Instructor.FirstName, ' ', Instructor.LastName) as 'Instructor', Department.DepartmentName
-    FROM classes inner join instructor on Classes.Instructor = Instructor.InstructorID
-    JOIN Department on Instructor.DepartmentID = Department.DepartmentID
-    where Classes.Department = :DepartmentID";
+    $sql = "SELECT classes.ClassID, classes.ClassTitle, classes.MeetingTimes, classes.MeetingDays, concat(Instructor.FirstName, ' ', Instructor.LastName) as 'Instructor', Department.DepartmentName FROM classes inner join instructor on Classes.Instructor = Instructor.InstructorID JOIN Department on Instructor.DepartmentID = Department.DepartmentID where Classes.Department = :DepartmentID";
 
     $DepartmentID = $_POST['DepartmentID'];
 
@@ -112,6 +110,29 @@ function getClasses($DepartmentID, $dsn, $username, $password, $options) {
     echo $sql . "<br>" . $error->getMessage();
   }
 }
+
+if (isset($_GET['AddClassID'])) {
+  try {
+    require_once "config.php";
+    require_once "common.php";
+    
+    $connectionAdd = new PDO($dsn, $username, $password, $options);
+  
+    $sqlAdd = "INSERT INTO `Enrolled` (`StudentID`, `ClassID`) VALUES(:StudentID, :AddClassID)";
+
+    $StudentID = $_GET['StudentID'];
+    $AddClassID = $_GET['AddClassID'];
+  
+    $statementAdd = $connectionAdd->prepare($sqlAdd);
+    $statementAdd->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
+    $statementAdd->bindParam(':AddClassID', $AddClassID, PDO::PARAM_STR);
+    $statementAdd->execute();
+
+  } catch(PDOException $err) {
+    echo $sqlAdd . "<br>" . $err->getMessage();
+  }
+}
+
 ?>
 
 <a href="index.php">Back to home</a>

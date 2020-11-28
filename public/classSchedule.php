@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
 <?php
 
 
-//TODO: New plan: If rewriting the SQL function doesn't work then instead of reloading the page with the "drop" link, I want to put checkboxes at the end of the list where the drop links are currently. Then have one drop button at the bottom of the table. When you click the checkbox the CourseID's are added to an array and once the button is clicked it runs a function which passes the array in as an argument. Then a for loop goes through the array and drops each individual course from the student's class list. 
+//TODO: New plan: I want to put checkboxes at the end of the list where the drop links are currently. Then have one drop button at the bottom of the table. When you click the checkbox the CourseID's are added to an array and once the button is clicked it runs a function which passes the array in as an argument. Then a for loop goes through the array and drops each individual course from the student's class list. 
 
 if (isset($_GET['DropClassID'])) {
   try {
