@@ -11,32 +11,32 @@ if (isset($_POST['submit'])) {
   try {
     require_once "config.php";
     require_once "common.php";
-  
+    
     $connection = new PDO($dsn, $username, $password, $options);
-  
+    
     $sql = "SELECT Student.FirstName, Student.StudentID, Classes.ClassTitle, Classes.ClassID
     FROM Student inner join Enrolled on Student.StudentID = Enrolled.StudentID
     JOIN Classes on Enrolled.ClassID = Classes.ClassID
     WHERE Student.StudentID = :StudentID";
 
-    $sql2 = "SELECT FirstName FROM Student WHERE StudentID = :StudentID";
+$sql2 = "SELECT FirstName FROM Student WHERE StudentID = :StudentID";
 
-    $StudentID = $_POST['StudentID'];
-  
-    $statement = $connection->prepare($sql);
-    $statement->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
-    $statement->execute();
+$StudentID = $_POST['StudentID'];
 
-    $result = $statement->fetchAll();
+$statement = $connection->prepare($sql);
+$statement->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
+$statement->execute();
 
-    $statement2 = $connection->prepare($sql2);
-    $statement2->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
-    $statement2->execute();
-  
-    $name = $statement2->fetch();
-  } catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
-  }
+$result = $statement->fetchAll();
+
+$statement2 = $connection->prepare($sql2);
+$statement2->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
+$statement2->execute();
+
+$name = $statement2->fetch();
+} catch(PDOException $error) {
+  echo $sql . "<br>" . $error->getMessage();
+}
 }
 ?>
 
@@ -48,26 +48,26 @@ if (isset($_POST['submit'])) {
 
 if (isset($_GET['DropClassID'])) {
   try {
-
+    
     require_once "config.php";
     require_once "common.php";
     
     $connectionDrop = new PDO($dsn, $username, $password, $options);
-  
+    
     $sqlDrop = "DELETE FROM Enrolled
     WHERE Enrolled.StudentID = :StudentID AND Enrolled.ClassID = :DropClassID";
 
-    $StudentID = $_GET['StudentID'];
-    $DropClassID = $_GET['DropClassID'];
-  
-    $statementDrop = $connectionDrop->prepare($sqlDrop);
-    $statementDrop->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
-    $statementDrop->bindParam(':DropClassID', $DropClassID, PDO::PARAM_STR);
-    $statementDrop->execute();
+$StudentID = $_GET['StudentID'];
+$DropClassID = $_GET['DropClassID'];
 
-  } catch(PDOException $err) {
-    echo $sqlDrop . "<br>" . $err->getMessage();
-  }
+$statementDrop = $connectionDrop->prepare($sqlDrop);
+$statementDrop->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
+$statementDrop->bindParam(':DropClassID', $DropClassID, PDO::PARAM_STR);
+$statementDrop->execute();
+
+} catch(PDOException $err) {
+  echo $sqlDrop . "<br>" . $err->getMessage();
+}
 }
 ?>
 
@@ -75,40 +75,42 @@ if (isset($_GET['DropClassID'])) {
 
 //Changes the h2 tag based on the student selected
 ?>
-<h2>Courses <?php
-if(isset($name["FirstName"])){
-  echo ("for " . $name["FirstName"]);
-}
-?></h2>
+<div class="content">
+  <h2>View Schedule <?php
+  if(isset($name["FirstName"])){
+    echo ("for " . $name["FirstName"]);
+  }
+  ?></h2>
 
-<form method="post">
-    <label for="StudentID">Enter your Student ID</label>
-    <input type="text" id="StudentID" name="StudentID">
-    <input type="submit" name="submit" value="View Schedule">
-</form>
+  <form method="post">
+    <div class="form-group">
+        <label for="StudentID">Student ID:</label>
+        <input type="text" class="form-control" id="StudentID" name="StudentID">
+    </div>
+    <button type="submit" name="submit" class="btn btn-default">View Schedule</button>
+  </form>
 
-
-<table>
-  <thead>
-  <?php
-  if (isset($_POST['submit'])) { ?>
-    <tr>
-      <th>Class Title</th>
-    </tr>
-  <?php } ?>
-  </thead>
-  <tbody>
-  <?php 
-  if (isset($_POST['submit'])) {
-    foreach ($result as $row) : ?>
-    <tr>
-      <td><?php echo escape($row["ClassTitle"]); ?></td>
-      <td><a href="classSchedule.php?DropClassID=<?php echo escape($row['ClassID']);?>&StudentID=<?php echo escape($row['StudentID']);?>">Drop</a></td>
-    </tr>
-  <?php endforeach; }?>
-  </tbody>
-</table>
-
-<a href="index.php">Back to home</a>
-
+  <div class="table-hover">
+    <table class="table table-hover">
+      <thead>
+      <?php
+      if (isset($_POST['submit'])) { ?>
+        <tr>
+          <th>Class Title</th>
+        </tr>
+      <?php } ?>
+      </thead>
+      <tbody>
+      <?php 
+      if (isset($_POST['submit'])) {
+        foreach ($result as $row) : ?>
+        <tr>
+          <td><?php echo escape($row["ClassTitle"]); ?></td>
+          <td><a href="classSchedule.php?DropClassID=<?php echo escape($row['ClassID']);?>&StudentID=<?php echo escape($row['StudentID']);?>">Drop</a></td>
+        </tr>
+      <?php endforeach; }?>
+      </tbody>
+    </table>
+  </div>
+</div>
 <?php require "templates/footer.php"; ?>
