@@ -11,6 +11,14 @@
   </head>
 
   <body>
+  <div class="title">
     <h1>Student Course Registration App</h1>
+  </div>
+
+    <div class="icons">
+      <a href="index.php">
+        <img src="icons/Home.png">
+      </a>
+    </div>
   </body>
 </html>
