@@ -90,7 +90,7 @@ $statementDrop->execute();
     <button type="submit" name="submit" class="btn btn-default">View Schedule</button>
   </form>
 
-  <div class="table-hover">
+  <div class="table-responsive">
     <table class="table table-hover">
       <thead>
       <?php
