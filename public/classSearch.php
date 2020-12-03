@@ -14,25 +14,6 @@
         echo("<br> <h3>Logged in as " . $name . "</h3>");
       } ?></h2>
 
-      <div class="table-striped">
-        <table class="table table-striped">
-          <tr>
-            <th>Film</th>
-            <th>Engineering</th>
-            <th>Business</th>
-            <th>Economics</th>
-            <th>Psychology</th>
-          </tr>
-          <tr>
-            <td>50</td>
-            <td>51</td>
-            <td>52</td>
-            <td>53</td>
-            <td>54</td>
-          </tr>
-        </table>
-      </div>
-
       <!-- Gets the student id for log in -->
       <form method="post">
         <div class="form-group">
@@ -82,7 +63,7 @@
       function showClasses($result, $statement) {
         if ($result && $statement->rowCount() > 0) { ?>
           <h2>Results</h2>
-          <div class="table-hover">
+          <div class="table-responsive">
             <table class="table table-hover">
               <thead>
                 <tr>
