@@ -16,7 +16,7 @@
         border-radius: 0;
       }
       #footer{
-        position: relative;
+        position: absolute;
         bottom: 0;
         width: 100%;
         height: 2.5rem;
@@ -24,6 +24,7 @@
       }
       .content{
         width: 80%;
+        height: 80%;
         margin: 0 auto;
       }
     </style>
@@ -36,11 +37,6 @@
           <div class="navbar-header">
             <a class="navbar-brand" href="index.php">Home <span class="sr-only">(current)</span></a>
           </div>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="createStudent.php"><span class="glyphicon glyphicon-user"></span> New Student</a></li>
-            <li><a href="classSearch.php"><span class="glyphicon glyphicon-search"></span> Class Search</a></li>
-            <li><a href="classSchedule.php"><span class="glyphicon glyphicon-th-list"></span> Your Schedule</a></li>
-          </ul>
         </div>
       </div>
     </nav>
