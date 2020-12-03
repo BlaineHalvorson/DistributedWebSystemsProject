@@ -38,8 +38,15 @@
         <div class="form-group">
           <label for="StudentID">Student ID:</label>
           <input type="text" class="form-control" id="StudentID" name="StudentID">
-          <label for="DepartmentID">Department ID:</label>
-          <input type="text" class="form-control" id="DepartmentID" name="DepartmentID">
+          <label for="DepartmentID">Department:</label>
+          <select type="text" class="form-control" id="DepartmentID" name="DepartmentID">
+            <option value="">Select One</option>
+            <option value="50">Film</option>
+            <option value="51">Engineering</option>
+            <option value="52">Business</option>
+            <option value="53">Economics</option>
+            <option value="54">Psychology</option>
+          </select>
         </div>
         <button type="submit" class="btn btn-default">View Results</button>
       </form>

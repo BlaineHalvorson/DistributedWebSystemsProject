@@ -49,10 +49,24 @@
 				<input class="form-control" type="text" name="LastName" id="LastName">
 
 				<label for="Major">Desired Major</label>
-				<input class="form-control" type="text" name="Major" id="Major">
+				<select class="form-control" type="text" name="Major" id="Major">
+					<option value="">Select One</option>
+					<option value="Film">Film</option>
+					<option value="Engineering">Engineering</option>
+					<option value="Business">Business</option>
+					<option value="Economics">Economics</option>
+					<option value="Psychology">Psychology</option>
+				</select>
 
 				<label for="Minor">Desired Minor (optional)</label>
-				<input class="form-control" type="text" name="Minor" id="Minor">
+				<select class="form-control" type="text" name="Minor" id="Minor">
+					<option value="None">None</option>
+					<option value="Film">Film</option>
+					<option value="Engineering">Engineering</option>
+					<option value="Business">Business</option>
+					<option value="Economics">Economics</option>
+					<option value="Psychology">Psychology</option>
+				</select>
 			</div>
 			<button type="submit" name="submit" class="btn btn-default">Submit</button>
 		</form>
